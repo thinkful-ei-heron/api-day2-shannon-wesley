@@ -9,10 +9,15 @@ import shoppingList from './shopping-list';
 
 
 const main = function () {
-  api.getItems()
+  api.createItem('pears')
     .then(res => res.json())
-    .then(res => console.log(res));
-
+    .then((newItem) => {
+      return api.getItems();
+    })
+    .then(res => res.json())
+    .then((items) => {
+      console.log(items);
+    });
   console.log(api.BASE_URL);
 
   shoppingList.bindEventListeners();
