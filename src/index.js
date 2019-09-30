@@ -17,7 +17,7 @@ const main = function () {
   shoppingList.bindEventListeners();
   shoppingList.render();
 };
-
+console.log('here');
 
 
 
