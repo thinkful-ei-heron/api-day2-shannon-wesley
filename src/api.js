@@ -6,11 +6,17 @@ const getItems = function(){
 
 const updateItem = function(id, updateData) {
   //let update = JSON.stringify(updateData);
+  // console.log(updateData);
+  const newObject = {
+    name: updateData.name,
+    checked: updateData.checked,
+  };
+
   return fetch(
     `${BASE_URL}/items/${id}`,{
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(updateData)
+      body: JSON.stringify(newObject)
     }
   );
 };
