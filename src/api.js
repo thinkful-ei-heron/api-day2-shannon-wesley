@@ -21,6 +21,17 @@ const updateItem = function(id, updateData) {
   );
 };
 
+const deleteItem = function(id){
+
+  return fetch(
+    `${BASE_URL}/items/${id}`,{
+      method: 'DELETE',
+    }
+  );
+};
+
+
+
 const createItem = function(name){
   let newItem = JSON.stringify({name});
   return fetch(`${BASE_URL}/items`,{
@@ -34,5 +45,6 @@ const createItem = function(name){
 export default {
   updateItem,
   getItems,
+  deleteItem,
   createItem
 };
