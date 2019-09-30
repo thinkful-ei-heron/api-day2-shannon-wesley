@@ -1,7 +1,7 @@
 import $ from 'jquery';
 
 import store from './store';
-import item from './item';
+//import item from './item';
 import api from './api';
 
 const generateItemElement = function (item) {
@@ -85,7 +85,13 @@ const handleEditShoppingItemSubmit = function () {
     event.preventDefault();
     const id = getItemIdFromElement(event.currentTarget);
     const itemName = $(event.currentTarget).find('.shopping-item').val();
-    store.findAndUpdateName(id, itemName);
+    api.updateItem(id, itemName)
+      .then(res => res.json())
+      .then((updatedItem) => {
+        store.findAndUpdate(id, updatedItem);
+        render();
+      });
+    //store.findAndUpdateName(id, itemName);
     render();
   });
 };
@@ -93,8 +99,16 @@ const handleEditShoppingItemSubmit = function () {
 const handleItemCheckClicked = function () {
   $('.js-shopping-list').on('click', '.js-item-toggle', event => {
     const id = getItemIdFromElement(event.currentTarget);
-    store.findAndToggleChecked(id);
+    const currentItem = store.findById(id);
+    //console.log(currentItem.name);
+    //console.log(currentItem + typeof currentItem);
+    currentItem.checked = !currentItem.checked;
+    // console.log(currentItem.checked);
+    api.updateItem(id, currentItem.checked)
+      .then(
+        store.findAndUpdate(id, currentItem.checked));
     render();
+    //store.findAndToggleChecked(id);
   });
 };
 

@@ -4,12 +4,12 @@ const getItems = function(){
   return fetch(`${BASE_URL}/items`);
 };
 
-const updateItem = function(id,updateData) {
-  //let update = JSON.stringify({updateData});
+const updateItem = function(id, updateData) {
+  //let update = JSON.stringify(updateData);
   return fetch(
     `${BASE_URL}/items/${id}`,{
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updateData)
     }
   );
