@@ -17,6 +17,14 @@ const main = function () {
       items.forEach((item) => store.addItem(item));
       shoppingList.render();
     });
+  const item = store.items[0];
+  // console.log(store.items[0]);
+  // console.log(store.items[0]);
+  console.log(item);
+  //console.log('current name: ' + item.name);
+  // store.findAndUpdate(item.id, { name: 'foobar' });
+  // console.log('new name: ' + item.name);
+
   shoppingList.bindEventListeners();
   shoppingList.render();
 };
