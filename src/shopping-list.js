@@ -39,6 +39,11 @@ const render = function () {
   if (store.hideCheckedItems) {
     items = items.filter(item => !item.checked);
   }
+
+  if (store.error){
+    alert(store.error.message);
+    delete store.error;
+  }
   // render the shopping list in the DOM
   const shoppingListItemsString = generateShoppingItemsString(items);
 
@@ -58,8 +63,9 @@ const handleNewItemSubmit = function () {
         render();
       })
       .catch(error => {
-        store.error = true;
-        alert(error.message);
+        store.error = error;
+        //alert(error.message);
+        render();
       });
   });
 };
@@ -79,8 +85,8 @@ const handleDeleteItemClicked = function () {
     store.findAndDelete(id);
     api.deleteItem(id)
       .catch(error => {
-        store.error = true;
-        alert(error.message);
+        store.error = error;
+        render();
       });
     render();
     // render the updated shopping list
@@ -96,8 +102,7 @@ const handleEditShoppingItemSubmit = function () {
       .then( () => {
         store.findAndUpdate(id, {name: itemName});})
       .catch(error => {
-        store.error = true;
-        alert(error.message);
+        store.error = error;
         render();
       });
   });
@@ -115,8 +120,8 @@ const handleItemCheckClicked = function () {
       .then(
         store.findAndUpdate(id, currentItem))
       .catch(error => {
-        store.error = true;
-        alert(error.message);
+        store.error = error;
+        render();
       });
     render();
   });
